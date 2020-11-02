@@ -11,7 +11,7 @@ export default class {{className}} extends Vue {
 {{/each}}
 
   // computed
-{{each computed value i}}  get {{value}}
+{{each computed value i}}  get {{@value}}
 {{/each}}
 
   // life
@@ -19,7 +19,7 @@ export default class {{className}} extends Vue {
 {{/each}}
 
   // methods
-{{each methods value i}}  {{value}}
+{{each methods value i}}  {{@value}}
 {{/each}}
 
 }

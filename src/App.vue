@@ -128,7 +128,7 @@ export default class App extends Vue {
     }
   }
   getLife() {
-    const reg1 = /[ ]{2}(beforeCreate|created|beforeMount|mounted|beforeUpdate|updated|beforeDestroy|destroyed)(.|\s)*?\n[ ]{2}}/g;
+    const reg1 = /[ ]{2}(beforeCreate|created|beforeMount|mounted|beforeUpdate|updated|beforeDestroy|destroyed|activated|deactivated)(.|\s)*?\n[ ]{2}}/g;
     const life = this.input.match(reg1);
     return life || [];
   }
