@@ -13,6 +13,11 @@ export default class {{className}} extends Vue {
 {{each computed value i}}  get {{@value}}
 {{/each}}
 
+  // watch
+{{each watch value i}}  @Watch()
+  {{@value}}
+{{/each}}
+
   // life
 {{each life value i}}{{@value}}
 {{/each}}

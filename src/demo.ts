@@ -100,7 +100,7 @@ export default {
   },
   watch: {
     //使用这个可以监听data中指定数据的变化,然后触发watch中对应的function的处理
-    vehicleInsuranceDetailEntities: function (newVal, oldVal) {
+    vehicleInsuranceDetailEntities(newVal, oldVal) {
       if (newVal.length === 0) {
         this.vehicleInsuranceEntity.businessInsuranceFee = "";
       }

@@ -32,11 +32,13 @@ export default class App extends Vue {
     console.log("computed", computed);
     const methods = this.getMethods();
     console.log("methods", methods);
+    const watch = this.getWatch();
+    console.log("watch", watch);
     const props = this.getProps();
     console.log("props", props);
     const life = this.getLife();
     console.log("life", life);
-    return window.template.render(templateStr, { className, components, data, computed, methods, props, life });
+    return window.template.render(templateStr, { className, components, data, computed, methods, watch, props, life });
   }
 
   getClassName() {
@@ -61,11 +63,12 @@ export default class App extends Vue {
     }
   }
   getData() {
-    const reg1 = /[ ]{2}data[\s(){}]*return\s*{([\s\S]*?)\n[ ]{2}}/;
+    const reg1 = /[ ]{2}data[\s(){}]*return\s*{([\s\S]*?)\n[ ]{4}}/;
     const reg2 = /^[ ]{6}[\w_]+:/gm;
     const reg3 = /(^[ ]{6}[\S]+[ ]*=[ ]*[\S]+,$)|(^[ ]{6}},)/gm;
     const data = this.input.match(reg1);
     if (data && data[1]) {
+      console.log(data[1]);
       const data2 = data[1].replace(reg2, (v) => {
         return v.replace(":", " =")
       })
@@ -93,6 +96,18 @@ export default class App extends Vue {
     const methods = this.input.match(reg1);
     if (methods && methods[1]) {
       const temp = eval(`const temp={${methods[1]}};temp;`);
+      return Object.keys(temp).map((k) => {
+        return temp[k].toString();
+      });
+    } else {
+      return [];
+    }
+  }
+  getWatch() {
+    const reg1 = /[ ]{2}watch:\s*{\s*((.|\s)*?\n)[ ]{2}}/;
+    const watch = this.input.match(reg1);
+    if (watch && watch[1]) {
+      const temp = eval(`const temp={${watch[1]}};temp;`);
       return Object.keys(temp).map((k) => {
         return temp[k].toString();
       });
