@@ -61,16 +61,19 @@ export default class App extends Vue {
     }
   }
   getData() {
-    const reg1 = /[ ]{2}data\(\)\s*{\s*return((.|\s)*?);\n[ ]{2}}/;
+    const reg1 = /[ ]{2}data[\s(){}]*return\s*{([\s\S]*?)\n[ ]{2}}/;
+    const reg2 = /^[ ]{6}[\w_]+:/gm;
+    const reg3 = /(^[ ]{6}[\S]+[ ]*=[ ]*[\S]+,$)|(^[ ]{6}},)/gm;
     const data = this.input.match(reg1);
     if (data && data[1]) {
-      const temp = eval(`const temp=${data[1]};temp;`);
-      Object.keys(temp).forEach((key) => {
-        temp[key] = JSON.stringify(temp[key]);
+      const data2 = data[1].replace(reg2, (v) => {
+        return v.replace(":", " =")
+      })
+      return data2.replace(reg3, (v) => {
+        return v.substr(0, v.length - 1) + ";"
       });
-      return temp;
     } else {
-      return [];
+      return "";
     }
   }
   getComputed() {

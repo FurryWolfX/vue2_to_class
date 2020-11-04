@@ -7,8 +7,7 @@ export default class {{className}} extends Vue {
 {{each props value key}}  @Prop({ default: {{@ value.default }} }) {{@ value.name }}!: {{@ value.type }};
 {{/each}}
   // data
-{{each data value key}}  {{@key}} = {{@value}};
-{{/each}}
+{{@data}}
 
   // computed
 {{each computed value i}}  get {{@value}}
